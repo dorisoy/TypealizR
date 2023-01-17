@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en">
+		<body>
+			<trans-unit id="HomePageHeader" datatype="plaintext">
+				<source>Checkout TypealizR and make you localization better!</source>
+				<note>Header on the main website page</note>
+			</trans-unit>
+			<trans-unit id="HomePageHeaderLine2" datatype="plaintext">
+				<source>Unlock unparalleled development speed for quality translation!</source>
+			</trans-unit>
+		</body>
+	</file>
+	<file source-language="en" target-language="de">
+		<body>
+			<trans-unit id="HomePageHeader" datatype="plaintext">
+				<source>Wirf einen Blick auf TypealizR und verbessere deine Lokalisierungen!</source>
+				<note>Header on the main website page</note>
+			</trans-unit>
+			<trans-unit id="HomePageHeaderLine2" datatype="plaintext">
+				<source>Erreiche eine beispliellose Entwicklungsgeschwindigkeit mit hochqualitativen Übersetzungen!</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

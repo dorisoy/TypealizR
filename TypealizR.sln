@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground.Console", "src\P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Playgrounds", "Playgrounds", "{38D4BAEB-9CA0-4868-B8A0-6CBADCB198AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.Xliff.Console", "src\Playground.Xliff.Console\Playground.Xliff.Console.csproj", "{718F5809-6A79-4C15-9041-FA23A22DB6F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{5C3B51DC-CD28-4F12-B8D9-62EA8C2B00EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3B51DC-CD28-4F12-B8D9-62EA8C2B00EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C3B51DC-CD28-4F12-B8D9-62EA8C2B00EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{718F5809-6A79-4C15-9041-FA23A22DB6F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718F5809-6A79-4C15-9041-FA23A22DB6F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718F5809-6A79-4C15-9041-FA23A22DB6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718F5809-6A79-4C15-9041-FA23A22DB6F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D94E3949-302E-4211-B508-5791482D8997} = {38D4BAEB-9CA0-4868-B8A0-6CBADCB198AC}
 		{5C3B51DC-CD28-4F12-B8D9-62EA8C2B00EB} = {38D4BAEB-9CA0-4868-B8A0-6CBADCB198AC}
+		{718F5809-6A79-4C15-9041-FA23A22DB6F4} = {38D4BAEB-9CA0-4868-B8A0-6CBADCB198AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {963536E5-E9EB-471B-9292-73125DAB4B08}
