@@ -28,6 +28,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="CodeGen\SamplesWithCode.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>SamplesWithCode.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="CodeGen\SamplesWithCode.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>SamplesWithCode.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="NoCodeGen\Internal.resx">
 			<Generator></Generator>
 		</EmbeddedResource>

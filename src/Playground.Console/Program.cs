@@ -1,11 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Playground.Console.CodeGen;
 using Playground.Console.NoCodeGen;
 using Playground.Shared;
 using Playground.Shared.NoCodeGen;
 
-Console.WriteLine("Hello, World!");
+var x = new SamplesWithCode();
+
+Console.WriteLine(x.Greeting());
+Console.WriteLine(x.Hello__world("earth"));
+
 
 var services = new ServiceCollection();
 services.AddLogging();
@@ -34,3 +39,7 @@ var userName = "Arthur";
 var today = DateOnly.FromDateTime(DateTimeOffset.Now.UtcDateTime);
 
 localize.Hello__user__it_is__today(userName, today);
+
+
+
+
