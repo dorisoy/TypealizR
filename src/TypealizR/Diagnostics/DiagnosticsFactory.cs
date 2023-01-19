@@ -7,21 +7,20 @@ using id = TypealizR.Diagnostics.DiagnosticsId;
 
 namespace TypealizR.Diagnostics;
 
-
 internal class DiagnosticsCollector
 {
 	private readonly DiagnosticsFactory factory;
 
-	public DiagnosticsCollector(DiagnosticsFactory factory)
+	public DiagnosticsCollector(string filePath, string rawRessourceKey, int lineNumber, IDictionary<string, DiagnosticSeverity>? severityConfig = null)
 	{
-		this.factory = factory;
+		this.factory = new(filePath, rawRessourceKey, lineNumber, severityConfig);
 	}
 
-	private readonly List<Diagnostic> entries = new();
+	private readonly List<Diagnostic> diagnostics = new();
 
-	internal void Add(Func<DiagnosticsFactory, Diagnostic> create) => entries.Add(create(factory));
+	internal void Add(Func<DiagnosticsFactory, Diagnostic> create) => diagnostics.Add(create(factory));
 
-	public IEnumerable<Diagnostic> Entries => entries;
+	public IEnumerable<Diagnostic> Diagnostics => diagnostics;
 }
 
 internal class DiagnosticsFactory
@@ -29,31 +28,32 @@ internal class DiagnosticsFactory
 	private readonly string filePath;
 	private readonly string rawRessourceKey;
 	private readonly int lineNumber;
-	private readonly IDictionary<string, DiagnosticSeverity> severityMap;
+	private readonly IDictionary<string, DiagnosticSeverity> severityConfig;
 
-	public DiagnosticsFactory(string filePath, string rawRessourceKey, int lineNumber, IDictionary<string, DiagnosticSeverity>? severityMap = null)
+	public DiagnosticsFactory(string filePath, string rawRessourceKey, int lineNumber, IDictionary<string, DiagnosticSeverity>? severityConfig = null)
 	{
 		this.filePath = filePath;
 		this.rawRessourceKey = rawRessourceKey;
 		this.lineNumber = lineNumber;
-		this.severityMap = severityMap ?? new Dictionary<string, DiagnosticSeverity>();
+		this.severityConfig = severityConfig ?? new Dictionary<string, DiagnosticSeverity>();
 	}
 
-	private DiagnosticSeverity? SeverityFor(DiagnosticsId id) => severityMap.ContainsKey(id.ToString()) ? severityMap[id.ToString()] : null;
+	private DiagnosticSeverity? SeverityFor(DiagnosticsId id) => severityConfig.ContainsKey(id.ToString()) ? severityConfig[id.ToString()] : null;
 
 	internal static readonly DiagnosticsEntry TR0001 = new(id.TR0001, "TargetProjectRootDirectoryNotFound");
 	internal static Diagnostic TargetProjectRootDirectoryNotFound_0001() =>
 		Diagnostic.Create(
 			new(id: TR0001.Id.ToString(),
 				title: TR0001.Title,
-				messageFormat: "The code generator could not determine the projects root-directory. See {0}",
+				messageFormat: Strings.TR0001_MessageFormat,
 				category: "Project",
 				defaultSeverity: DiagnosticSeverity.Error,
 				isEnabledByDefault: true,
-				description: "The code generator could not determine the projects root-directory",
+				description: Strings.TR0001_Description,
 				helpLinkUri: DiagnosticsEntry.LinkToDocs(TR0001)
 			),
-			Location.None, DiagnosticsEntry.LinkToDocs(TR0001)
+			Location.None, 
+			DiagnosticsEntry.LinkToDocs(TR0001)
 		);
 
 	internal static readonly DiagnosticsEntry TR0002 = new(id.TR0002, "AmbigiousRessourceKey");
@@ -61,11 +61,11 @@ internal class DiagnosticsFactory
 		Diagnostic.Create(
 			new(id: TR0002.Id.ToString(),
 				title: TR0002.Title,
-				messageFormat: "Ressource contains the key '{0}' that would end up as a duplicate method-name. Using '{1}' as derived name for this key. See {2}",
+				messageFormat: Strings.TR0002_MessageFormat,
 				category: "Readability",
 				defaultSeverity: SeverityFor(TR0002.Id) ?? DiagnosticSeverity.Warning,
 				isEnabledByDefault: true,
-				description: "Encountered an ambigious ressource-key",
+				description: Strings.TR0002_Description,
 				helpLinkUri: DiagnosticsEntry.LinkToDocs(TR0002)
 			),
 			Location.Create(filePath.Replace("\\", "/"),
@@ -83,11 +83,11 @@ internal class DiagnosticsFactory
 		Diagnostic.Create(
 			new(id: TR0003.Id.ToString(),
 				title: TR0003.Title,
-				messageFormat: "Ressource-key '{0}' uses the generic format-parameter '{1}'. Consider to use a more meaningful name, instead. See {2}",
+				messageFormat: Strings.TR0003_MessageFormat,
 				category: "Readability",
 				defaultSeverity: SeverityFor(TR0003.Id) ?? DiagnosticSeverity.Warning,
 				isEnabledByDefault: true,
-				description: "Encountered a generic parameter",
+				description: Strings.TR0003_Description,
 				helpLinkUri: DiagnosticsEntry.LinkToDocs(TR0003)
 			),
 			Location.Create(filePath.Replace("\\", "/"),
@@ -106,11 +106,11 @@ internal class DiagnosticsFactory
 		Diagnostic.Create(
 			new(id: TR0004.Id.ToString(),
 				title: TR0004.Title,
-				messageFormat: "Ressource-key '{0}' uses unrecognized parameter-annotation '{1}'. Falling back to 'object'. See {2}",
+				messageFormat: Strings.TR0004_MessageFormat,
 				category: "Readability",
 				defaultSeverity: SeverityFor(TR0004.Id) ?? DiagnosticSeverity.Warning,
 				isEnabledByDefault: true,
-				description: "Encountered an unrecognized parameter-type",
+				description: Strings.TR0004_Description,
 				helpLinkUri: DiagnosticsEntry.LinkToDocs(TR0004)
 			),
 			Location.Create(filePath.Replace("\\", "/"),
@@ -121,5 +121,5 @@ internal class DiagnosticsFactory
 				)
 			),
 			rawRessourceKey, parameterTypeAnnotation, DiagnosticsEntry.LinkToDocs(TR0004)
-		);
+		);    internal static readonly DiagnosticsEntry TR0005 = new(id.TR0005, "InvalidMemberName");    internal Diagnostic InvalidMemberName_0005(string source, string replacement) =>        Diagnostic.Create(            new(id: TR0005.Id.ToString(),                title: TR0005.Title,                messageFormat: Strings.TR0005_MessageFormat,                category: "Readability",                defaultSeverity: SeverityFor(TR0005.Id) ?? DiagnosticSeverity.Warning,                isEnabledByDefault: true,                description: Strings.TR0005_Description,                helpLinkUri: DiagnosticsEntry.LinkToDocs(TR0005)            ),            Location.Create(filePath.Replace("\\", "/"),                textSpan: new(0, rawRessourceKey.Length),                lineSpan: new(                    start: new(line: lineNumber - 1, character: 0),                    end: new(line: lineNumber - 1, character: rawRessourceKey.Length - 1)                )            ),            rawRessourceKey, source, replacement, DiagnosticsEntry.LinkToDocs(TR0005)        );
 }
